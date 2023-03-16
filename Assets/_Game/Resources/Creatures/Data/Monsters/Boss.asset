@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03b577192f21be6488b8633f58f6393b, type: 3}
+  m_Script: {fileID: 11500000, guid: ea77ea8ebd414125ab4622eee003567d, type: 3}
   m_Name: Boss
   m_EditorClassIdentifier: 
-  _overrideSource: {fileID: 11400000, guid: b355be5880b99a14a84fe9bf972ccda8, type: 2}
-  _statsCoefficient:
-    HealthCoefficient: 10
-    DamageCoefficient: 1.5
-    MoveSpeedCoefficient: 0.5
-    DamageSpeedCoefficient: 1
+  _stats:
+    Health: 100
+    Damage: 3
+    MoveSpeed: 0.25
+    DamageSpeed: 1
