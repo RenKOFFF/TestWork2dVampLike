@@ -5,12 +5,13 @@ namespace _Game.Scripts
 {
     public class MoveToTargetComponent : MonoBehaviour
     {
-        [SerializeField] private float _moveSpeed = 5f;
+        [SerializeField] private float _moveSpeed = 1f;
 
         private Hero _target;
 
         private void Start()
         {
+            _moveSpeed = GetComponent<Monster>().MonsterData.Stats.MoveSpeed;
             _target = GameManager.Hero;
         }
 

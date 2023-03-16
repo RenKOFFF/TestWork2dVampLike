@@ -8,6 +8,9 @@ public class Hero : MonoBehaviour, IDamageable
 {
     [SerializeField] private HeroData _heroData;
 
+    [SerializeField] private CircleCollider2D _attackCollider;
+    [SerializeField] private float _attackRange;
+
     private HeroHealthComponent _healthComponent;
     
     public HeroHealthComponent HealthComponent => _healthComponent; 
@@ -19,6 +22,8 @@ public class Hero : MonoBehaviour, IDamageable
     {
         _healthComponent = GetComponent<HeroHealthComponent>();
         _healthComponent.OnDeadEvent += Dead;
+
+        _attackCollider.radius = _attackRange;
     }
 
     private void OnDisable()

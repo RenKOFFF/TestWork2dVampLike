@@ -176,7 +176,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -305,6 +305,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heroData: {fileID: 11400000, guid: ba2d32f2d444bbe4984f8e77c27f2d65, type: 2}
+  _attackCollider: {fileID: 1035748145}
+  _attackRange: 4
 --- !u!50 &1268606877
 Rigidbody2D:
   serializedVersion: 4
@@ -418,7 +420,7 @@ MonoBehaviour:
   _spawnableObjectPrefabs:
   - {fileID: 6015197727536901507, guid: f6ce9200e88f9764c9abf961fcc6a5fe, type: 3}
   - {fileID: 6015197727536901507, guid: a5abb34dc0196924c96658dcfd801e3b, type: 3}
-  _spawnRadiusFromSpawnPoint: 6.26
+  _spawnRadiusFromSpawnPoint: 10
   _centerSpawnCircle: {fileID: 1268606875}
   _spawnCoolDown: 6.83
   _spawnParent: {fileID: 1653281017}
