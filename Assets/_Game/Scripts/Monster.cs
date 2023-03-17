@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using _Game.Scripts.Components;
 using UnityEngine;
 
 namespace _Game.Scripts
@@ -25,6 +26,7 @@ namespace _Game.Scripts
 
         private void Dead()
         {
+            StopAllCoroutines();
             Destroy(gameObject);
         }
 

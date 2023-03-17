@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using _Game.Scripts;
+using _Game.Scripts.Components;
 using UnityEngine;
 
 public class Hero : MonoBehaviour, IDamageable, ICreature
@@ -14,9 +15,13 @@ public class Hero : MonoBehaviour, IDamageable, ICreature
 
     public event Action OnTakeDamageEvent;
 
-    private void Start()
+    private void Awake()
     {
         HealthComponent = GetComponent<HealthComponent<Hero>>();
+    }
+
+    private void Start()
+    {
         HealthComponent.OnDeadEvent += Dead;
 
         _attackCollider.radius = _attackRange;
@@ -25,6 +30,11 @@ public class Hero : MonoBehaviour, IDamageable, ICreature
     private void OnDisable()
     {
         HealthComponent.OnDeadEvent -= Dead;
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 
     private void OnTriggerEnter2D(Collider2D col)
