@@ -3,7 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static Hero Hero { get; private set; }
-    private void Start()
+    private void Awake()
     {
         Hero = FindObjectOfType<Hero>();
     }

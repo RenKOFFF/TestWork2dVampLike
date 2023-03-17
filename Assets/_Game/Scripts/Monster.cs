@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections;
 using _Game.Scripts.Components;
+using _Game.Scripts.Interfaces;
 using UnityEngine;
 
 namespace _Game.Scripts
@@ -11,7 +11,7 @@ namespace _Game.Scripts
 
         public Stats Stats => _stats;
         public HealthComponent<Monster> HealthComponent { get; private set; }
-        public event Action OnTakeDamageEvent;
+        public event Action<IDamageable> OnTakeDamageEvent;
 
         private void Start()
         {
@@ -19,40 +19,17 @@ namespace _Game.Scripts
             HealthComponent.OnDeadEvent += Dead;
         }
 
-        private void OnDisable()
-        {
-            HealthComponent.OnDeadEvent -= Dead;
-        }
-
         private void Dead()
         {
+            HealthComponent.OnDeadEvent -= Dead;
             StopAllCoroutines();
             Destroy(gameObject);
         }
 
-        private void OnTriggerEnter2D(Collider2D col)
-        {
-            var hero = col.GetComponent<Hero>();
-
-            if (hero)
-            {
-                StartCoroutine(Attack(hero, hero.Stats.Damage));
-            }
-        }
-
-        private IEnumerator Attack(Hero hero, float damageValue)
-        {
-            while (true)
-            {
-                hero.TakeDamage(damageValue);
-                yield return new WaitForSeconds(Stats.DamageSpeed);
-            }
-        }
-
-        public void TakeDamage(float damageValue)
+        public void TakeDamage(IDamageable sender, float damageValue)
         {
             HealthComponent.DecreaseHealth(damageValue);
-            OnTakeDamageEvent?.Invoke();
+            OnTakeDamageEvent?.Invoke(sender);
         }
     }
 }

@@ -1,8 +1,12 @@
 ﻿using System;
+using UnityEngine;
 
-public interface IDamageable
+namespace _Game.Scripts.Interfaces
 {
-    public event Action OnTakeDamageEvent; 
-    public void TakeDamage(float damageValue);
+    public interface IDamageable
+    {
+        public event Action<IDamageable> OnTakeDamageEvent; 
+        public void TakeDamage(IDamageable sender, float damageValue);
     
+    }
 }
