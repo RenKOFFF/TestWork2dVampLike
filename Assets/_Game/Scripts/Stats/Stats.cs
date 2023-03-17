@@ -3,15 +3,14 @@
 namespace _Game.Scripts
 {
     [Serializable]
-    public struct Stats
+    public class Stats
     {
-        public float Health, Damage, MoveSpeed, DamageSpeed;
-        
-        public Stats(float health, float damage, float moveSpeed, float damageSpeed)
+        public float Health, Damage, DamageSpeed;
+
+        public Stats(float health, float damage, float damageSpeed)
         {
             Health = health;
             Damage = damage;
-            MoveSpeed = moveSpeed;
             DamageSpeed = damageSpeed;
         }
     }

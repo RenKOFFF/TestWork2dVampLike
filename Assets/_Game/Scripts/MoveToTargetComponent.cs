@@ -1,4 +1,5 @@
 ﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace _Game.Scripts
@@ -7,12 +8,13 @@ namespace _Game.Scripts
     {
         [SerializeField] private float _moveSpeed = 1f;
 
-        private Hero _target;
+        private GameObject _target;
 
         private void Start()
         {
-            _moveSpeed = GetComponent<Monster>().MonsterData.Stats.MoveSpeed;
-            _target = GameManager.Hero;
+            var monsterStats = GetComponent<Monster>().Stats as MonsterStats;
+            _moveSpeed = monsterStats.MoveSpeed;
+            _target = GameManager.Hero.gameObject;
         }
 
         private void Update()

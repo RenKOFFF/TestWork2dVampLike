@@ -6,7 +6,7 @@ namespace _Game.Scripts
     {
         private void Start()
         {
-            _health = GetComponent<Monster>().MonsterData.Stats.Health;
+            _health = GetComponent<Monster>().Stats.Health;
             _currentHealthComponent = MaxHealth;
         }
     }

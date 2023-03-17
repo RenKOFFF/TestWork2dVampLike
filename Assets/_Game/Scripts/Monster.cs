@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace _Game.Scripts
 {
-    public class Monster : MonoBehaviour, IDamageable
+    public class Monster : MonoBehaviour, IDamageable, ICreature
     {
-        [SerializeField] private MonsterData _monsterData;
+        [SerializeField] private MonsterStats _stats;
 
         private MonsterHealthComponent _healthComponent;
-        
+
+        public Stats Stats => _stats;
         public MonsterHealthComponent HealthComponent => _healthComponent; 
-        public MonsterData MonsterData => _monsterData;
         public event Action OnTakeDamageEvent;
 
         private void Start()
@@ -39,7 +39,7 @@ namespace _Game.Scripts
             if (hero)
             {
                 Debug.Log($"{name}: Enter hero - {col.name}");
-                StartCoroutine(Attack(hero, hero.HeroData.Stats.Damage));
+                StartCoroutine(Attack(hero, hero.Stats.Damage));
             }
         }
 
@@ -49,7 +49,7 @@ namespace _Game.Scripts
             {
                 Debug.Log("EnemyStartAttack");
                 hero.TakeDamage(damageValue);
-                yield return new WaitForSeconds(_monsterData.Stats.DamageSpeed);
+                yield return new WaitForSeconds(Stats.DamageSpeed);
             }
         }
 

@@ -4,17 +4,16 @@ using _Game.Scripts;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Hero : MonoBehaviour, IDamageable
+public class Hero : MonoBehaviour, IDamageable, ICreature
 {
-    [SerializeField] private HeroData _heroData;
-
+    [SerializeField] private Stats _stats;
     [SerializeField] private CircleCollider2D _attackCollider;
     [SerializeField] private float _attackRange;
 
     private HeroHealthComponent _healthComponent;
-    
-    public HeroHealthComponent HealthComponent => _healthComponent; 
-    public HeroData HeroData => _heroData;
+
+    public Stats Stats => _stats;
+    public HeroHealthComponent HealthComponent => _healthComponent;
 
     public event Action OnTakeDamageEvent;
 
@@ -38,7 +37,7 @@ public class Hero : MonoBehaviour, IDamageable
         if (monster)
         {
             Debug.Log($"{name}: Enter monster - {col.name}");
-            StartCoroutine(Attack(monster, monster.MonsterData.Stats.Damage));
+            StartCoroutine(Attack(monster, monster.Stats.Damage));
         }
     }
 
@@ -51,7 +50,7 @@ public class Hero : MonoBehaviour, IDamageable
             
             Debug.Log("HeroStartAttack");
             monster.TakeDamage(damageValue);
-            yield return new WaitForSeconds(_heroData.Stats.DamageSpeed);
+            yield return new WaitForSeconds(Stats.DamageSpeed);
         }
     }
 

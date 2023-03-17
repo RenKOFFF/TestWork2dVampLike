@@ -7,7 +7,7 @@ namespace _Game.Scripts
     {
         private void Start()
         {
-            _health = GetComponent<Hero>().HeroData.Stats.Health;
+            _health = GetComponent<Hero>().Stats.Health;
             _currentHealthComponent = _health;
         }
     }
