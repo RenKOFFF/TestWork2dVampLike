@@ -1,18 +1,18 @@
 ﻿using System;
 using UnityEngine;
 
-namespace _Game.Scripts
+namespace _Game.Scripts.Components
 {
-    public abstract class HealthComponent<T> : MonoBehaviour where T : ICreature
+    public class HealthComponent<T> : MonoBehaviour where T : MonoBehaviour, ICreature
     {
-        protected float _currentHealthComponent;
-
+        private float _currentHealthComponent;
+        
         public float MaxHealth { get; private set; }
 
         public event Action<float> OnHealthValueChangedEvent; 
         public event Action OnDeadEvent;
 
-        private void Start()
+        protected void Start()
         {
             MaxHealth = GetComponent<T>().Stats.Health;
             _currentHealthComponent = MaxHealth;
@@ -21,7 +21,6 @@ namespace _Game.Scripts
         public void DecreaseHealth(float damageValue)
         {
             _currentHealthComponent -= damageValue;
-            Debug.Log($"{name} health is{_currentHealthComponent}");
 
             if (_currentHealthComponent <= 0)
             {
