@@ -3,19 +3,18 @@ using UnityEngine;
 
 namespace _Game.Scripts
 {
-    public abstract class HealthComponent : MonoBehaviour
+    public abstract class HealthComponent<T> : MonoBehaviour where T : ICreature
     {
-        protected float _health;
-
         protected float _currentHealthComponent;
-        
-        public float MaxHealth => _health;
+
+        public float MaxHealth { get; private set; }
 
         public event Action<float> OnHealthValueChangedEvent; 
         public event Action OnDeadEvent;
 
         private void Start()
         {
+            MaxHealth = GetComponent<T>().Stats.Health;
             _currentHealthComponent = MaxHealth;
         }
 

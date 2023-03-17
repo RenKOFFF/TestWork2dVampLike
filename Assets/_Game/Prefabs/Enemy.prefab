@@ -210,7 +210,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae5c6b23425d44ceab6df3a3e16cddcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _monsterData: {fileID: 11400000, guid: b355be5880b99a14a84fe9bf972ccda8, type: 2}
+  _stats:
+    Health: 10
+    Damage: 2
+    DamageSpeed: 0.5
+    MoveSpeed: 1
 --- !u!114 &-2839135340762084611
 MonoBehaviour:
   m_ObjectHideFlags: 0

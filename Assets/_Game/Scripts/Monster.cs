@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace _Game.Scripts
@@ -9,18 +8,16 @@ namespace _Game.Scripts
     {
         [SerializeField] private MonsterStats _stats;
 
-        private MonsterHealthComponent _healthComponent;
-
         public Stats Stats => _stats;
-        public MonsterHealthComponent HealthComponent => _healthComponent; 
+        public HealthComponent<Monster> HealthComponent { get; private set; }
         public event Action OnTakeDamageEvent;
 
         private void Start()
         {
-            _healthComponent = GetComponent<MonsterHealthComponent>();
-            _healthComponent.OnDeadEvent += Dead;
+            HealthComponent = GetComponent<HealthComponent<Monster>>();
+            HealthComponent.OnDeadEvent += Dead;
         }
-        
+
         private void OnDisable()
         {
             HealthComponent.OnDeadEvent -= Dead;
@@ -28,7 +25,6 @@ namespace _Game.Scripts
 
         private void Dead()
         {
-            Debug.Log("PomerMonster");
             Destroy(gameObject);
         }
 
@@ -38,7 +34,6 @@ namespace _Game.Scripts
 
             if (hero)
             {
-                Debug.Log($"{name}: Enter hero - {col.name}");
                 StartCoroutine(Attack(hero, hero.Stats.Damage));
             }
         }
@@ -47,7 +42,6 @@ namespace _Game.Scripts
         {
             while (true)
             {
-                Debug.Log("EnemyStartAttack");
                 hero.TakeDamage(damageValue);
                 yield return new WaitForSeconds(Stats.DamageSpeed);
             }
@@ -55,7 +49,6 @@ namespace _Game.Scripts
 
         public void TakeDamage(float damageValue)
         {
-            Debug.Log($"{name} taked pizdi");
             HealthComponent.DecreaseHealth(damageValue);
             OnTakeDamageEvent?.Invoke();
         }

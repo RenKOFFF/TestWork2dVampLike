@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using _Game.Scripts;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Hero : MonoBehaviour, IDamageable, ICreature
@@ -9,18 +8,16 @@ public class Hero : MonoBehaviour, IDamageable, ICreature
     [SerializeField] private Stats _stats;
     [SerializeField] private CircleCollider2D _attackCollider;
     [SerializeField] private float _attackRange;
-
-    private HeroHealthComponent _healthComponent;
-
+    
     public Stats Stats => _stats;
-    public HeroHealthComponent HealthComponent => _healthComponent;
+    public HealthComponent<Hero> HealthComponent { get; private set; }
 
     public event Action OnTakeDamageEvent;
 
     private void Start()
     {
-        _healthComponent = GetComponent<HeroHealthComponent>();
-        _healthComponent.OnDeadEvent += Dead;
+        HealthComponent = GetComponent<HealthComponent<Hero>>();
+        HealthComponent.OnDeadEvent += Dead;
 
         _attackCollider.radius = _attackRange;
     }
@@ -36,7 +33,6 @@ public class Hero : MonoBehaviour, IDamageable, ICreature
 
         if (monster)
         {
-            Debug.Log($"{name}: Enter monster - {col.name}");
             StartCoroutine(Attack(monster, monster.Stats.Damage));
         }
     }
@@ -48,7 +44,6 @@ public class Hero : MonoBehaviour, IDamageable, ICreature
             if (!monster)
                 yield break;
             
-            Debug.Log("HeroStartAttack");
             monster.TakeDamage(damageValue);
             yield return new WaitForSeconds(Stats.DamageSpeed);
         }
@@ -56,15 +51,18 @@ public class Hero : MonoBehaviour, IDamageable, ICreature
 
     public void TakeDamage(float damageValue)
     {
-        Debug.Log($"{name} taked pizdi");
         HealthComponent.DecreaseHealth(damageValue);
         OnTakeDamageEvent?.Invoke();
     }
 
     private void Dead()
     {
-        Debug.Log("PomerHero");
-
         Destroy(gameObject);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, _attackRange);
     }
 }
